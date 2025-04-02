@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="form-item">
+    <text class="label">习惯名称</text>
+    <input placeholder="请输入习惯名称" value="{{habitName}}" bindinput="onNameInput" />
+  </view>
+
+  <view class="form-item">
+    <text class="label">习惯类型</text>
+    <picker range="{{types}}" range-key="name" value="{{typeIndex}}" bindchange="onTypeChange">
+      <view class="picker">{{types[typeIndex].name}}</view>
+    </picker>
+  </view>
+
+  <view class="form-item">
+    <text class="label">打卡频率</text>
+    <picker range="{{frequencies}}" range-key="name" value="{{frequencyIndex}}" bindchange="onFrequencyChange">
+      <view class="picker">{{frequencies[frequencyIndex].name}}</view>
+    </picker>
+  </view>
+
+  <view class="form-item">
+    <text class="label">选择图标</text>
+    <view class="icon-list">
+      <block wx:for="{{icons}}" wx:key="id">
+        <image 
+          src="{{item.path}}" 
+          class="icon {{selectedIcon === item.id ? 'selected' : ''}}" 
+          data-id="{{item.id}}" 
+          bindtap="onIconSelect"
+        />
+      </block>
+    </view>
+  </view>
+
+  <button class="submit-btn" bindtap="submitHabit">创建习惯</button>
+</view>

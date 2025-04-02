@@ -1,0 +1,39 @@
+<view class="container">
+  <view class="header">
+    <text class="he_text">{{myTime}}</text>
+    <view class="weather-container">
+      <block wx:if="{{weatherInfo}}">
+        <text>当前温度：{{weatherInfo.temp}}°C\n</text>
+        <text>天气状况：{{weatherInfo.text}}\n</text>
+      </block>
+      <block wx:else>
+        <text>正在加载天气信息...</text>
+      </block>
+    </view>
+  </view>
+  <view class="image-container" style="position: relative; left: 0rpx; top: -39rpx">
+    <image src="{{randomImage}}" mode="aspectFit"></image>
+    <!-- 按钮定位到图片上 -->
+    <button class="refresh-button" bindtap="refreshImage" style="position: absolute; left: 287rpx; top: 412rpx">换一张</button>
+  </view>
+  <scroll-view class="habit-list">
+    <block wx:for="{{habits}}" wx:key="_id">
+      <view class="habit-item" data-id="{{item._id}}" bindtap="navigateToDetail">
+        <checkbox value="{{item._id}}" checked="{{item.completedDays}}" data-value="{{item._id}}" bindtap="toggleCompletion" />
+        <image class="icon" src="{{item.iconPath}}"></image>
+        <text class="habit-name">{{item.name}}</text>
+        <text class="habit-status">{{typeMap[item.type]}}</text>
+        <text class="habit-duration">{{item.duration}}</text>
+        <text class="habit-streak">已连续 {{item.streak}}天</text>
+        <button class="delete-btn" data-id="{{item._id}}" bindtap="showDeleteConfirm">删除</button>
+      </view>
+    </block>
+  </scroll-view>
+  <!-- 删除确认对话框 -->
+  <modal wx:if="{{showDeleteModal}}" title="确认删除" confirm-text="删除" cancel-text="取消" 
+         bindconfirm="confirmDelete" bindcancel="cancelDelete">
+    <view>确定要删除这个习惯吗？</view>
+  </modal>
+  <!-- 添加习惯按钮 -->
+  <button class="add_habit" bindtap="navigateToAddHabit" style="width: 47rpx; display: block; box-sizing: border-box; left: 620rpx; top: 1175rpx; height: 87rpx">+</button>
+</view>

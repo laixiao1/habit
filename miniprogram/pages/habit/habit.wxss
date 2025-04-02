@@ -1,0 +1,153 @@
+/* 页面整体样式 */
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fdf7ae;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx;
+  flex: 1; /* 占据剩余空间 */
+}
+
+/* 头部样式 */
+.header {
+  width: 90%;
+  height: auto;
+  background-color: #acd0ee;
+  border-radius: 15rpx;
+  padding: 20rpx;
+  margin-bottom: 70rpx;
+}
+
+.he_text {
+  font-size: 45rpx;
+  color: #4a90e2;
+  margin-bottom: 10rpx;
+}
+
+.weather-container {
+  margin-top: 10rpx;
+}
+
+.weather-container text {
+  font-size: 40rpx;
+  color: #4a90e2;
+}
+
+/* 图片容器样式 */
+.image-container {
+  position: relative; /* 设置为相对定位，用于子元素绝对定位 */
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10rpx;
+  height: 500rpx; 
+  display: inline-block; 
+  box-sizing: border-box
+}
+
+.image-container image {
+  width: 350px; /* 固定宽度 */
+  height: 250px; /* 固定高度 */
+  border-radius: 10rpx; /* 可选：添加圆角效果 */
+}
+
+/* 换一张按钮样式 */
+.refresh-button {
+  position: absolute; /* 绝对定位 */
+  bottom: 20rpx; /* 距离图片底部 20rpx */
+  right: 40rpx; /* 距离图片右侧 20rpx */
+  background-color: rgba(0, 0, 0, 0.6); /* 半透明背景 */
+  color: white; /* 文字颜色 */
+  font-size: 30rpx; /* 字体大小 */
+  padding: 10rpx 20rpx; /* 内边距 */
+  border-radius: 50rpx; /* 圆角按钮 */
+  border: none; /* 去掉默认边框 */
+  z-index: 1; /* 确保按钮在图片上方 */
+}
+
+/* 习惯列表样式 */
+.habit-list {
+  border-radius: 16rpx;
+  padding: 0 20rpx;
+}
+
+/* 添加删除按钮样式 */
+.delete-btn {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  border-radius: 10rpx;
+  padding: 5rpx 15rpx;
+  font-size: 24rpx;
+  margin-left: 10rpx;
+}
+
+/* 调整习惯项布局以适应删除按钮 */
+.habit-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #EB82AE;
+  height: 100rpx;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+  background-color: #F2B9CE;
+  flex-wrap: wrap;
+}
+
+
+.icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+}
+
+.habit-name {
+  font-size: 32rpx;
+  color: #4a90e2;
+  margin-right: 20rpx;
+}
+
+.habit-status {
+  font-size: 24rpx;
+  color: #7f8c8d;
+  margin-right: 20rpx;
+}
+
+.habit-duration {
+  font-size: 24rpx;
+  color: #7f8c8d;
+  margin-right: 20rpx;
+}
+
+.habit-streak {
+  font-size: 24rpx;
+  color: #7f8c8d;
+}
+
+
+/* 添加习惯按钮样式 */
+.add_habit {
+  position: fixed; /* 固定定位 */
+  bottom: 20px; /* 距离页面底部 20px */
+  right: 20px; /* 距离页面右侧 20px */
+  width: 40px; /* 按钮宽度 */
+  height: 40px; /* 按钮高度 */
+  border-radius: 50%; /* 圆形按钮 */
+  background-color: #67C9C1; /* 背景颜色 */
+  border: none; /* 去掉默认边框 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+  z-index: 999; /* 确保按钮在最上层 */
+  opacity: 0.8;
+}
+
+.add_habit text{
+  font-size: 20px; /* 字体大小 */
+  text-align: center; /* 水平居中文字 */
+  color: white; /* 文字颜色 */
+}

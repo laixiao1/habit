@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="header">
+    <text class="title" style="position: relative; left: 280rpx; top: 1rpx">习惯详情</text>
+  </view>
+
+  <view class="habit-detail" wx:if="{{habit}}">
+    <image class="detail-icon" src="{{habit.iconPath}}"></image>
+    <text class="detail-name">{{habit.name}}</text>
+    
+    <view class="detail-info">
+      <text>类型: {{typeMap[habit.type]}}</text>
+      <text>打卡频率: {{habit.status}}</text>
+      <text>已坚持: {{habit.streak}}天</text>
+      <text>总完成: {{habit.completedDays}}次</text>
+      <text>创建时间: {{habit.createdAt}}</text>
+    </view>
+  </view>
+</view>
