@@ -1,18 +1,117 @@
 <view class="container">
-  <view class="header">
-    <text class="title" style="position: relative; left: 280rpx; top: 1rpx">习惯详情</text>
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-container">
+    <image src="/images/loading.gif" class="loading-image"></image>
+    <text class="loading-text">加载中...</text>
   </view>
 
-  <view class="habit-detail" wx:if="{{habit}}">
-    <image class="detail-icon" src="{{habit.iconPath}}"></image>
-    <text class="detail-name">{{habit.name}}</text>
+  <!-- 错误状态 -->
+  <view wx:elif="{{error}}" class="error-container">
+    <text class="error-text">{{error}}</text>
+    <view class="button-group">
+      <button class="custom-button" bindtap="onRetry">重试</button>
+      <button class="custom-button secondary" bindtap="onBack">返回列表</button>
+    </view>
+  </view>
+
+  <!-- 正常内容 -->
+  <view wx:else class="habit-detail">
+    <!-- 头部区域 -->
+    <view class="habit-header">
+      <image src="{{habit.iconPath}}" class="habit-icon" bindtap="onEditIcon"></image>
+      <text class="habit-name">{{habit.name}}</text>
+    </view>
     
-    <view class="detail-info">
-      <text>类型: {{typeMap[habit.type]}}</text>
-      <text>打卡频率: {{habit.status}}</text>
-      <text>已坚持: {{habit.streak}}天</text>
-      <text>总完成: {{habit.completedDays}}次</text>
-      <text>创建时间: {{habit.createdAt}}</text>
+    <!-- 习惯信息 -->
+    <view class="habit-info">
+      <view class="info-item">
+        <text class="info-label">类型:</text>
+        <text class="info-value">{{habit.typeName}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">打卡频率:</text>
+        <text class="info-value">{{habit.frequencyDesc}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">完成状态:</text>
+        <text class="info-value">{{completedMap[habit.completed]}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">连续打卡:</text>
+        <text class="info-value">{{habit.streak}}天</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">最后打卡:</text>
+        <text class="info-value">{{habit.lastCompletedDate}}</text>
+      </view>
+    </view>
+    
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button 
+        class="complete-button" 
+        bindtap="onComplete"
+        disabled="{{habit.completed}}"
+      >
+        {{habit.completed ? '今日已完成' : '今日打卡'}}
+      </button>
+      <button class="edit-button" bindtap="onEdit">编辑习惯</button>
+      <button class="delete-button" bindtap="onDelete">删除习惯</button>
+    </view>
+  </view>
+  
+  <!-- 编辑图标模态框 -->
+  <view class="modal-container" wx:if="{{selectingIcon}}">
+    <view class="modal-mask" bindtap="onCancelEditIcon"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">选择图标</text>
+        <text class="modal-close" bindtap="onCancelEditIcon">×</text>
+      </view>
+      <view class="icon-grid">
+        <block wx:for="{{iconsMap}}" wx:key="id">
+          <view 
+            class="icon-item {{currentIconIndex === index ? 'selected' : ''}}" 
+            bindtap="onSelectIcon"
+            data-index="{{index}}"
+          >
+            <image src="{{item.path}}" class="icon-image"></image>
+          </view>
+        </block>
+      </view>
+      <button class="confirm-button" bindtap="onConfirmEditIcon">确定</button>
+    </view>
+  </view>
+  
+  <!-- 编辑模态框 -->
+  <view class="modal-container" wx:if="{{showEditModal}}">
+    <view class="modal-mask" bindtap="onCancelEdit"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">编辑习惯</text>
+        <text class="modal-close" bindtap="onCancelEdit">×</text>
+      </view>
+      
+      <view class="form-item">
+        <text class="form-label">习惯名称</text>
+        <input class="form-input" placeholder="请输入习惯名称" 
+              value="{{editForm.name}}" bindinput="onNameInput"/>
+      </view>
+      <view class="form-item">
+        <text class="form-label">打卡频率</text>
+        <picker class="form-picker" mode="selector" 
+                range="{{statusOptions}}" range-key="name" value="{{currentStatusIndex}}"
+                bindchange="onStatusChange">
+          <view class="picker-content">
+            {{statusOptions[currentStatusIndex].name}}
+          </view>
+        </picker>
+      </view>
+      
+      <view class="form-buttons">
+        <button class="cancel-button" bindtap="onCancelEdit">取消</button>
+        <button class="confirm-button" bindtap="onConfirmEdit">确定</button>
+      </view>
     </view>
   </view>
 </view>

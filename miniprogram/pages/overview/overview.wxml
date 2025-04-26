@@ -1,2 +1,27 @@
-<!--pages/overview/overview.wxml-->
-<text>pages/overview/overview.wxml</text>
+<view class="container">
+    <!-- 表格展示习惯基本信息 -->
+    <view class="table-container">
+        <view class="table-header">
+            <view class="table-cell">习惯名称</view>
+            <view class="table-cell">打卡状态</view>
+            <view class="table-cell">连续打卡天数</view>
+        </view>
+        <view class="table-body" wx:for="{{habitsList}}" wx:key="_id">
+            <view class="table-cell">{{item.name}}</view>
+            <view class="table-cell">{{item.completed? '已完成' : '未完成'}}</view>
+            <view class="table-cell">{{item.streak}}</view>
+        </view>
+    </view>
+    <!-- 添加两个按钮 -->
+    <view class="button-container">
+        <button bindtap="showCompletionPieChart">完成情况总览</button>
+        <button bindtap="showTypeCompletionPieChart">按类型完成情况</button>
+    </view>
+    <!-- 图表展示区域，这里复用之前的canvas -->
+    <canvas id="completedHabitsChart" type="2d" style="width: 600rpx; height: 600rpx;"></canvas>
+
+    <!-- 添加下载按钮 -->
+    <view class="download">
+      <image bindtap="download" src="/image/ico/download.png" mode="aspectFill"/>
+    </view>
+</view>

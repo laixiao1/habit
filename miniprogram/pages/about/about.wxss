@@ -1,0 +1,81 @@
+page{
+  background-color: #fdf7ae;
+}
+
+.about-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 头部样式 */
+.about-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 0;
+  margin-bottom: 20rpx;
+}
+
+.logo {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 24rpx;
+}
+
+.app-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-top: 20rpx;
+  color: #333;
+}
+
+/* 内容区域样式 */
+.about-content {
+  flex: 1;
+  padding: 0 30rpx;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.setting-item-hover {
+  background-color: #fff;
+}
+
+.item-title {
+  font-size: 32rpx;
+  color: #333;
+}
+
+.item-right {
+  display: flex;
+  align-items: center;
+}
+
+.item-value {
+  font-size: 28rpx;
+  color: #999;
+  margin-right: 20rpx;
+}
+
+.item-icon {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/* 底部样式 */
+.about-footer {
+  padding: 40rpx 0;
+  text-align: center;
+}
+
+.copyright {
+  font-size: 24rpx;
+  color: #999;
+}

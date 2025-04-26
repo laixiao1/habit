@@ -1,0 +1,40 @@
+<view class="about-container">
+  <!-- 头部 -->
+  <view class="about-header">
+    <image class="logo" src="/image/navigation/habit.png" mode="aspectFit"></image>
+    <text class="app-name">小习惯</text>
+  </view>
+  
+  <!-- 内容区域 -->
+  <view class="about-content">
+    <!-- 版本信息 -->
+    <view class="setting-item" hover-class="setting-item-hover">
+      <text class="item-title">当前版本</text>
+      <view class="item-right">
+        <text class="item-value">v1.0.0</text>
+        <image class="item-icon" src="/image/ico/cat.png" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <!-- 用户协议 -->
+    <view class="setting-item" bindtap="goToAgreement" hover-class="setting-item-hover">
+      <text class="item-title">用户协议</text>
+      <view class="item-right">
+        <image class="item-icon" src="/image/ico/accessibility.png" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <!-- 隐私政策 -->
+    <view class="setting-item" bindtap="goToPrivacy" hover-class="setting-item-hover">
+      <text class="item-title">隐私政策</text>
+      <view class="item-right">
+        <image class="item-icon" src="/image/ico/chat-bubble-locked.png" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部版权信息 -->
+  <view class="about-footer">
+    <text class="copyright">© 2025 小习惯 版权所有</text>
+  </view>
+</view>

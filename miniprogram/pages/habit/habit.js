@@ -30,7 +30,8 @@ Page({
     randomImage: '',
     location: '',
     showAddHabitModal: false,
-    myTime: ''
+    myTime: '',
+    currentDate: new Date().toDateString() // 记录当前日期
   },
 
   onLoad(options) {
@@ -41,12 +42,44 @@ Page({
         myTime: DATE
       })
     }, 1000);
-    
+
     this.chooseRandomImage();
     this.fetchWeatherData();
     this.getUserLocation();
-    
+
     // 加载数据库中的习惯数据
+    this.loadHabitsFromDB();
+  },
+
+  onShow() {
+    const currentDate = new Date().toDateString();
+    if (currentDate !== this.data.currentDate) {
+      this.resetHabitsStatus();
+      this.setData({
+        currentDate: currentDate
+      });
+    }
+  },
+
+  // 重置所有习惯的状态为未打卡
+  resetHabitsStatus() {
+    const db = wx.cloud.database();
+    const habits = this.data.habits;
+    habits.forEach(habit => {
+      const habitRef = db.collection('habits').doc(habit._id);
+      habitRef.update({
+        data: {
+          completed: 0,
+          lastCompletedDate: null
+        },
+        success: () => {
+          console.log(`习惯 ${habit.name} 状态已重置`);
+        },
+        fail: (err) => {
+          console.error(`重置习惯 ${habit.name} 状态失败`, err);
+        }
+      });
+    });
     this.loadHabitsFromDB();
   },
 
@@ -63,9 +96,9 @@ Page({
             iconPath: iconPath
           };
         });
-        
+
         const completed = habits.filter(habit => habit.completed).length;
-        
+
         this.setData({
           habits: habits,
           completed: completed,
@@ -219,15 +252,6 @@ Page({
     });
   },
 
-  // 显示删除确认对话框
-  showDeleteConfirm(e) {
-    const habitId = e.currentTarget.dataset.id;
-    this.setData({
-      currentDeleteId: habitId,
-      showDeleteModal: true
-    });
-  },
-
   // 取消删除
   cancelDelete() {
     this.setData({
@@ -236,51 +260,58 @@ Page({
     });
   },
 
+  // 显示删除确认对话框
+  showDeleteConfirm(e) {
+    const habitId = e.currentTarget.dataset.id;
+    console.log('要删除的习惯ID:', habitId); // 调试用
+    this.setData({
+      currentDeleteId: habitId,
+      showDeleteModal: true
+    });
+  },
+
   // 确认删除习惯
   confirmDelete() {
+    const that = this;
     const habitId = this.data.currentDeleteId;
-    if (!habitId) return;
-  
+    
+    if (!habitId) {
+      console.error('没有获取到要删除的习惯ID');
+      return;
+    }
+
+    console.log('正在删除习惯ID:', habitId); // 调试用
+    
+    wx.showLoading({
+      title: '删除中...',
+      mask: true
+    });
+
     const db = wx.cloud.database();
-    // 先检查文档是否存在
-    db.collection('habits').doc(habitId).get({
+    
+    db.collection('habits').doc(habitId).remove({
       success: res => {
-        if (res.data) {
-          // 文档存在，执行删除
-          db.collection('habits').doc(habitId).remove({
-            success: res => {
-              wx.showToast({
-                title: '删除成功',
-                icon: 'success'
-              });
-              this.loadHabitsFromDB();
-            },
-            fail: err => {
-              console.error('删除失败:', err);
-              wx.showToast({
-                title: '删除失败: 无权限',
-                icon: 'none'
-              });
-            }
-          });
-        } else {
-          wx.showToast({
-            title: '习惯不存在',
-            icon: 'none'
-          });
-        }
+        console.log('删除成功', res);
+        wx.hideLoading();
+        wx.showToast({
+          title: '删除成功',
+          icon: 'success'
+        });
+        // 重新加载数据
+        that.loadHabitsFromDB();
       },
       fail: err => {
-        console.error('检查文档失败:', err);
+        console.error('删除失败:', err);
+        wx.hideLoading();
         wx.showToast({
-          title: '操作失败',
+          title: '删除失败，请重试',
           icon: 'none'
         });
       },
       complete: () => {
-        this.setData({
-          currentDeleteId: null,
-          showDeleteModal: false
+        that.setData({
+          showDeleteModal: false,
+          currentDeleteId: null
         });
       }
     });
@@ -297,18 +328,18 @@ Page({
    noop() {},
   
    // 阻止事件冒泡
-   stopPropagation(e) {
-     e.stopPropagation();
-   },
+  stopPropagation(e) {},
    
    // 修改后的toggleCompletion方法
    toggleCompletion(e) {
-     const habitId = Number(e.detail.value[0]); // 获取checkbox选中的值
-     if (!habitId) return;
-     
-     const isChecked = e.detail.value.length > 0;
-     this.updateHabitStatus(habitId, isChecked);
-   },
+    const habitId = Number(e.detail.value[0]);
+    if (!habitId) return;
+    
+    const isChecked = e.detail.value.length > 0;
+    if (!isChecked) return; // 不允许取消打卡
+    
+    this.updateHabitStatus(habitId, true);
+  },
    
    // 提取出的更新逻辑
    updateHabitStatus(habitId, isChecked) {

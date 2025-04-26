@@ -1,0 +1,39 @@
+<view class="setting-container">
+  <!-- 通知开关 -->
+  <view class="setting-item">
+    <view class="item-left">
+      <image src="/images/icons/notification.png" class="item-icon"></image>
+      <text>消息通知</text>
+    </view>
+    <switch checked="{{notificationSwitch}}" bindchange="onNotificationSwitchChange" color="#07C160"></switch>
+  </view>
+
+  <!-- 数据备份 -->
+  <view class="setting-item" bindtap="backupData">
+    <view class="item-left">
+      <image src="/images/icons/backup.png" class="item-icon"></image>
+      <text>数据备份</text>
+    </view>
+    <image src="/images/icons/arrow-right.png" class="arrow"></image>
+  </view>
+
+  <!-- 清理缓存 -->
+  <view class="setting-item" bindtap="clearCache">
+    <view class="item-left">
+      <image src="/images/icons/clear.png" class="item-icon"></image>
+      <text>清理缓存</text>
+    </view>
+    <view class="item-right">
+      <text class="cache-size">{{cacheSize}}</text>
+      <image src="/images/icons/arrow-right.png" class="arrow"></image>
+    </view>
+  </view>
+
+  <!-- 加载指示器 -->
+  <view wx:if="{{isLoading}}" class="loading-mask">
+    <view class="loading-content">
+      <image src="/images/loading.gif" class="loading-icon"></image>
+      <text>正在备份数据...</text>
+    </view>
+  </view>
+</view>

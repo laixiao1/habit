@@ -5,16 +5,16 @@
   </view>
 
   <view class="form-item">
-    <text class="label">习惯类型</text>
+    <text class="label" style="position: relative; left: -102rpx; top: 0rpx">习惯类型</text>
     <picker range="{{types}}" range-key="name" value="{{typeIndex}}" bindchange="onTypeChange">
-      <view class="picker">{{types[typeIndex].name}}</view>
+      <view class="picker" style="position: relative; left: -104rpx; top: 0rpx">{{types[typeIndex].name}}</view>
     </picker>
   </view>
 
   <view class="form-item">
-    <text class="label">打卡频率</text>
+    <text class="label" style="position: relative; left: -104rpx; top: 0rpx">打卡频率</text>
     <picker range="{{frequencies}}" range-key="name" value="{{frequencyIndex}}" bindchange="onFrequencyChange">
-      <view class="picker">{{frequencies[frequencyIndex].name}}</view>
+      <view class="picker" style="position: relative; left: -104rpx; top: 0rpx">{{frequencies[frequencyIndex].name}}</view>
     </picker>
   </view>
 

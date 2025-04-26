@@ -6,7 +6,10 @@
     "pages/overview/overview",
     "pages/detail/detail",
     "pages/addHabit/addHabit",
-    "pages/habitDetail/habitDetail"
+    "pages/habitDetail/habitDetail",
+    "pages/setting/setting",
+    "pages/about/about",
+    "pages/tomato/tomato"
   ],
   "permission": {
     "scope.userLocation": {
@@ -22,26 +25,26 @@
       {
         "pagePath": "pages/habit/habit",
         "text": "我的习惯",
-        "iconPath": "image/navigation/habit.png",
-        "selectedIconPath": "image/navigation/habit.png"
+        "iconPath": "image/ico/check-item(1).png",
+        "selectedIconPath": "image/ico/check-item(2).png"
       },
       {
         "pagePath": "pages/overview/overview",
         "text": "总览",
-        "iconPath": "image/navigation/chart.png",
-        "selectedIconPath": "image/navigation/chart.png"
+        "iconPath": "image/ico/chart-pie(1).png",
+        "selectedIconPath": "image/ico/chart-pie(2).png"
       },
       {
         "pagePath": "pages/center/center",
         "text": "个人中心",
-        "iconPath": "image/navigation/center.png",
-        "selectedIconPath": "image/navigation/center.png"
+        "iconPath": "image/ico/user(1).png",
+        "selectedIconPath": "image/ico/user(2).png"
       }
     ]
   },
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "小习惯",
     "navigationBarBackgroundColor": "#ffffff"
   },
   "style": "v2",

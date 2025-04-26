@@ -25,3 +25,12 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
+
+.light-theme {
+  background-color: #ffffff;
+  color: #333333;
+}
+.dark-theme {
+  background-color: #121212;
+  color: #ffffff;
+}

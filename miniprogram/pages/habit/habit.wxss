@@ -20,7 +20,7 @@ page {
   background-color: #acd0ee;
   border-radius: 15rpx;
   padding: 20rpx;
-  margin-bottom: 70rpx;
+  margin-bottom: 50rpx;
 }
 
 .he_text {
@@ -40,7 +40,7 @@ page {
 
 /* 图片容器样式 */
 .image-container {
-  position: relative; /* 设置为相对定位，用于子元素绝对定位 */
+  position: absolute; /* 设置为相对定位，用于子元素绝对定位 */
   width: 100%;
   text-align: center;
   margin-bottom: 10rpx;
@@ -80,74 +80,94 @@ page {
   background-color: #ff4d4f;
   color: white;
   border: none;
-  border-radius: 10rpx;
-  padding: 5rpx 15rpx;
+  border-radius: 30rpx; /* 较大的圆角 */
+  padding: 0 20rpx; /* 左右内边距减少 */
+  height: 50rpx; /* 更矮的高度 */
   font-size: 24rpx;
+  line-height: 50rpx; /* 确保文字垂直居中 */
   margin-left: 10rpx;
+  flex-shrink: 0;
 }
 
-/* 调整习惯项布局以适应删除按钮 */
+/* 习惯项样式 - 修改为垂直布局 */
 .habit-item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   padding: 20rpx;
   border-bottom: 1rpx solid #EB82AE;
-  height: 100rpx;
   border-radius: 20rpx;
   margin-bottom: 20rpx;
   background-color: #F2B9CE;
-  flex-wrap: wrap;
 }
 
+/* 顶部行样式 */
+.habit-top-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
 
+/* 底部行样式 */
+.habit-bottom-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: 60rpx;
+}
+
+/* 习惯名称样式 */
+.habit-name {
+  font-size: 35rpx;
+  color: #4a90e2;
+  flex: 1;
+  margin: 0 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 其他信息项样式 */
+.habit-status,
+.habit-duration,
+.habit-streak {
+  font-size: 28rpx;
+  color: #7f8c8d;
+  margin-right: 20rpx;
+}
+
+/* 图标样式 */
 .icon {
   width: 60rpx;
   height: 60rpx;
   margin-right: 20rpx;
+  flex-shrink: 0;
 }
 
-.habit-name {
-  font-size: 32rpx;
-  color: #4a90e2;
-  margin-right: 20rpx;
+.icon:active {
+  transform: scale(0.95);
 }
-
-.habit-status {
-  font-size: 24rpx;
-  color: #7f8c8d;
-  margin-right: 20rpx;
-}
-
-.habit-duration {
-  font-size: 24rpx;
-  color: #7f8c8d;
-  margin-right: 20rpx;
-}
-
-.habit-streak {
-  font-size: 24rpx;
-  color: #7f8c8d;
-}
-
 
 /* 添加习惯按钮样式 */
 .add_habit {
   position: fixed; /* 固定定位 */
   bottom: 20px; /* 距离页面底部 20px */
   right: 20px; /* 距离页面右侧 20px */
-  width: 40px; /* 按钮宽度 */
-  height: 40px; /* 按钮高度 */
+  width: 100rpx; /* 按钮宽度 */
+  height: 100rpx; /* 按钮高度 */
   border-radius: 50%; /* 圆形按钮 */
   background-color: #67C9C1; /* 背景颜色 */
   border: none; /* 去掉默认边框 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
   z-index: 999; /* 确保按钮在最上层 */
   opacity: 0.8;
 }
 
-.add_habit text{
-  font-size: 20px; /* 字体大小 */
-  text-align: center; /* 水平居中文字 */
-  color: white; /* 文字颜色 */
+.add_habit image{
+  width: 70rpx;
+  height: 70rpx;
+  padding: 15rpx;
+}
+
+/* 已完成的习惯复选框变灰 */
+checkbox[disabled] {
+  opacity: 0.6;
 }

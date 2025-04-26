@@ -1,0 +1,15 @@
+<view class="container">
+    <view class="time-picker">
+        <picker mode="selector" range="{{timeOptions}}" range-key="label" bindchange="changeDuration">
+            <view class="picker">选择时长：{{currentDuration.label}}</view>
+        </picker>
+    </view>
+    <view class="timer">{{displayTime}}</view>
+    <view class="controls">
+        <button bindtap="startTimer" wx:if="{{!isRunning}}">开始</button>
+        <button bindtap="pauseTimer" wx:else>暂停</button>
+        <button bindtap="resetTimer">复位</button>
+        <button bindtap="toggleMusic">{{isMusicPlaying ? '暂停音乐' : '播放音乐'}}</button>
+    </view>
+    <view class="status">{{statusText}}</view>
+</view>    

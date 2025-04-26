@@ -1,1 +1,136 @@
+page{
+  background-color: #fdf7ae;
+}
+
+.center-container {
+  padding: 20px;
+}
+
 /* pages/center/center.wxss */
+.container {
+  padding: 20rpx;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40rpx;
+  background-color: white;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+.userinfo-avatar-wrapper {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.userinfo-avatar {
+  width: 100%;
+  height: 100%;
+}
+
+.userinfo-nickname-wrapper {
+  text-align: center;
+}
+
+.userinfo-nickname {
+  font-size: 36rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.setting-entry,
+.about-entry {
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.arrow {
+  width: 12px;
+  height: 12px;
+}
+
+/* 番茄钟相关样式 */
+.tomato-status {
+  display: flex;
+  align-items: center;
+}
+
+.tomato-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: #fff;
+  width: 80%;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.tomato-timer {
+  font-size: 36px;
+  font-weight: bold;
+  color: #FF5252;
+  display: block;
+  margin: 20px 0;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-btn {
+  flex: 1;
+  margin: 0 5px;
+  background-color: #FF5252;
+  color: white;
+  border-radius: 6px;
+}
+
+.modal-btn.cancel {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.arrow{
+  width: 50rpx;
+  height: 50rpx;
+}

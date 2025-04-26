@@ -1,2 +1,50 @@
-<!--pages/center/center.wxml-->
-<text>pages/center/center.wxml</text>
+<view class="center-container">
+  <view class="userinfo">
+    <view class="userinfo-avatar-wrapper">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    </view>
+    <view class="userinfo-nickname-wrapper">
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+  </view>
+
+  <!--主题切换-->
+  <view class="theme-toggle">
+    <switch bindchange="toggleTheme" checked="{{isDarkTheme}}"></switch>
+    <text>{{isDarkTheme? '亮色主题' : '暗色主题'}}</text>
+  </view>
+  <!-- 番茄钟 -->
+  <view class="setting-entry">
+    <view class="setting-item" bindtap="goToTomato">
+      <text>番茄钟</text>
+      <image src="/image/ico/lock.png" mode="aspectFill" class="arrow"></image>
+    </view>
+  </view>
+
+  <!-- 设置入口 -->
+  <view class="setting-entry">
+    <view class="setting-item" bindtap="goToSetting">
+      <text>设置</text>
+      <image src="/image/ico/setting.png" mode="aspectFill" class="arrow"></image>
+    </view>
+  </view>
+
+  <!-- 分享好友按钮 -->
+  <view class="setting-entry">
+    <view class="setting-item" bindtap="shareMiniProgram">
+      <text>分享给朋友</text>
+      <image src="/image/ico/share.png" mode="aspectFill" class="arrow"></image>
+    </view>
+  </view>
+
+  <!-- 关于页面 -->
+  <view class="about-entry">
+    <view class="setting-item" bindtap="goToAbout">
+      <text>关于</text>
+      <image src="/image/ico/help.png" mode="aspectFill" class="arrow"></image>
+    </view>
+  </view>
+  <view class="logout-btn">
+    <button bindtap="logout">退出登录</button>
+  </view> 
+</view>
