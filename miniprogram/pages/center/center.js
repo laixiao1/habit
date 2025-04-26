@@ -2,7 +2,8 @@
 Page({
   data: {
       userInfo: null,
-      canGetUserInfo: true
+      canGetUserInfo: true,
+      isDarkTheme: false,
   },
   onLoad(options) {
     // 从缓存中获取登录信息
@@ -11,7 +12,7 @@ Page({
       this.setData({
         userInfo: loginInfo.userInfo
       })
-    }
+    };
   },
   // 检查授权状态
   checkAuthStatus() {
@@ -128,7 +129,9 @@ Page({
       isDarkTheme: isDark
     });
     wx.setStorageSync('isDarkTheme', isDark);
+    console.log('wx object:', wx); // 打印 wx 对象来检查是否正常
     // 通知 app.js 更新全局样式
-    wx.getApp().updateTheme(isDark);
+    const app = getApp(); // 直接使用 getApp() 方法
+    app.updateTheme(isDark);
   }
 })

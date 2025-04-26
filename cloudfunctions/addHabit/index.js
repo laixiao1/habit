@@ -18,7 +18,8 @@ exports.main = async (event, context) => {
     duration: event.duration || '打卡时间 每日',
     status: event.status || '每日',
     lastCompletedDate: null, // 新增字段
-    createdAt: db.serverDate() // 使用服务器时间
+    createdAt: db.serverDate(), // 使用服务器时间
+    remindTime: event.remindTime || null // 新增提醒时间字段
   }
 
   try {

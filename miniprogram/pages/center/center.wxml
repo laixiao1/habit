@@ -1,4 +1,4 @@
-<view class="center-container">
+<view class="{{globalData.themeClass}}">
   <view class="userinfo">
     <view class="userinfo-avatar-wrapper">
       <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
