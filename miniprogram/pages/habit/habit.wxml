@@ -17,18 +17,30 @@
     <button class="refresh-button" bindtap="refreshImage" style="position: absolute; left: 287rpx; top: 412rpx">换一张</button>
   </view>
   <scroll-view class="habit-list">
-    <block wx:for="{{habits}}" wx:key="_id">
-      <view class="habit-item" data-id="{{item._id}}" bindtap="navigateToDetail">
-        <checkbox value="{{item._id}}" checked="{{item.completedDays}}" data-value="{{item._id}}" bindtap="toggleCompletion" />
-        <image class="icon" src="{{item.iconPath}}"></image>
-        <text class="habit-name">{{item.name}}</text>
-        <text class="habit-status">{{typeMap[item.type]}}</text>
-        <text class="habit-duration">{{item.duration}}</text>
-        <text class="habit-streak">已连续 {{item.streak}}天</text>
-        <button class="delete-btn" data-id="{{item._id}}" bindtap="showDeleteConfirm">删除</button>
-      </view>
-    </block>
-  </scroll-view>
+  <block wx:for="{{habits}}" wx:key="_id">
+    <view class="habit-item" data-id="{{item._id}}" bindtap="navigateToDetail">
+      <checkbox-group bindchange="toggleCompletion">
+        <checkbox 
+          value="{{item._id}}" 
+          checked="{{item.completed}}"
+          data-id="{{item._id}}"
+          catchtap="noop"
+        />
+      </checkbox-group>
+      <image class="icon" src="{{item.iconPath}}"></image>
+      <text class="habit-name">{{item.name}}</text>
+      <text class="habit-status">{{typeMap[item.type]}}</text>
+      <text class="habit-duration">{{item.duration}}</text>
+      <text class="habit-streak">已连续 {{item.streak}}天</text>
+      <button 
+        class="delete-btn" 
+        data-id="{{item._id}}" 
+        bindtap="showDeleteConfirm"
+        catchtap="stopPropagation"
+      >删除</button>
+    </view>
+  </block>
+</scroll-view>
   <!-- 删除确认对话框 -->
   <modal wx:if="{{showDeleteModal}}" title="确认删除" confirm-text="删除" cancel-text="取消" 
          bindconfirm="confirmDelete" bindcancel="cancelDelete">

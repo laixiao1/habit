@@ -26,12 +26,14 @@ Page({
       wx.showToast({ title: '缺少习惯ID', icon: 'none' });
       return wx.navigateBack();
     }
+    
     // 将字符串ID转为数字（因为数据库_id是数字类型）
     const habitId = Number(options.id);
     if (isNaN(habitId)) {
       wx.showToast({ title: 'ID格式错误', icon: 'none' });
       return wx.navigateBack();
     }
+    
     this.loadHabitDetail(habitId);
   },
 
@@ -42,13 +44,13 @@ Page({
     db.collection('habits').doc(habitId).get({
       success: res => {
         wx.hideLoading();
-        const habit = res.data;
-        if (!habit) {
+        if (!res.data) {
           this.showError('习惯不存在');
           return;
         }
         
-        // 处理图标路径（注意habit.icon是字符串类型）
+        const habit = res.data;
+        // 查找图标路径（注意habit.icon是字符串类型）
         const iconPath = this.data.iconsMap.find(icon => icon.id === habit.icon)?.path 
                         || '/image/ico/default.png';
         
@@ -61,16 +63,14 @@ Page({
             createdAt: this.formatDate(habit.createdAt),
             lastCompletedDate: habit.lastCompletedDate 
                               ? this.formatDate(habit.lastCompletedDate)
-                              : '从未打卡',
-            // 添加数字ID显示（可选）
-            id: habit._id 
+                              : '从未打卡'
           }
         });
       },
       fail: err => {
         wx.hideLoading();
         console.error('加载失败:', err);
-        this.showError(this.getErrorMessage(err));
+        this.showError('加载失败: ' + this.getErrorMessage(err));
       }
     });
   },

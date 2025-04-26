@@ -287,90 +287,99 @@ Page({
   },
 
    // 查看习惯详情
-   navigateToDetail(e) {
-    const habitId = e.currentTarget.dataset.id;
+  navigateToDetail(e) {
+    const habitId = e.currentTarget.dataset.id; // 确保这是数字类型的_id
     wx.navigateTo({
-      url: `/pages/habitDetail/habitDetail?id=${habitId}`,
-      fail: err => {
-        console.error('跳转失败', err);
-        wx.showToast({
-          title: '无法打开详情页面',
-          icon: 'none'
-        });
-      }
+      url: `/pages/habitDetail/habitDetail?id=${habitId}`
     });
   },
-  // 切换习惯完成状态
-  toggleCompletion(e) {
-    const habitId = e.currentTarget.dataset.value;
-    const checked = e.detail.value.length > 0; // 是否被选中
-    
-    const db = wx.cloud.database();
-    const habitRef = db.collection('habits').doc(habitId);
-    
-    // 先获取当前习惯数据
-    habitRef.get({
-      success: res => {
-        const habit = res.data;
-        let newCompletedDays = habit.completedDays || 0;
-        let newStreak = habit.streak || 0;
-        
-        if (checked) {
-          // 勾选 - 增加完成天数
-          newCompletedDays += 1;
-          
-          // 检查是否是连续打卡
-          const today = new Date().toDateString();
-          const lastCompletedDate = habit.lastCompletedDate ? new Date(habit.lastCompletedDate).toDateString() : null;
-          const yesterday = new Date();
-          yesterday.setDate(yesterday.getDate() - 1);
-          yesterday.toDateString();
-          
-          if (!lastCompletedDate || lastCompletedDate === yesterday.toDateString()) {
-            newStreak += 1;
-          } else if (lastCompletedDate !== today) {
-            // 如果不是昨天也不是今天，重置连续天数
-            newStreak = 1;
-          }
-        } else {
-          // 取消勾选 - 减少完成天数（但不能小于0）
-          newCompletedDays = Math.max(0, newCompletedDays - 1);
-          
-          // 取消勾选不影响连续天数
-        }
-        
-        // 更新数据库
-        habitRef.update({
-          data: {
-            completedDays: newCompletedDays,
-            streak: newStreak,
-            lastCompletedDate: checked ? new Date() : habit.lastCompletedDate,
-            completed: checked
-          },
-          success: () => {
-            // 更新本地数据
-            this.loadHabitsFromDB();
-            wx.showToast({
-              title: checked ? '打卡成功！' : '已取消打卡',
-              icon: 'success'
-            });
-          },
-          fail: err => {
-            console.error('更新习惯失败', err);
-            wx.showToast({
-              title: '操作失败',
-              icon: 'none'
-            });
-          }
-        });
-      },
-      fail: err => {
-        console.error('获取习惯数据失败', err);
-        wx.showToast({
-          title: '操作失败',
-          icon: 'none'
-        });
-      }
-    });
-  },
+   // 空函数用于阻止冒泡
+   noop() {},
+  
+   // 阻止事件冒泡
+   stopPropagation(e) {
+     e.stopPropagation();
+   },
+   
+   // 修改后的toggleCompletion方法
+   toggleCompletion(e) {
+     const habitId = Number(e.detail.value[0]); // 获取checkbox选中的值
+     if (!habitId) return;
+     
+     const isChecked = e.detail.value.length > 0;
+     this.updateHabitStatus(habitId, isChecked);
+   },
+   
+   // 提取出的更新逻辑
+   updateHabitStatus(habitId, isChecked) {
+     const db = wx.cloud.database();
+     const habitRef = db.collection('habits').doc(habitId);
+     
+     wx.showLoading({ title: '处理中...', mask: true });
+     
+     habitRef.get({
+       success: (res) => {
+         if (!res.data) {
+           wx.hideLoading();
+           return wx.showToast({ title: '习惯不存在', icon: 'none' });
+         }
+         
+         const habit = res.data;
+         const updateData = {
+           completed: isChecked ? 1 : 0,
+           lastCompletedDate: isChecked ? db.serverDate() : habit.lastCompletedDate,
+           completedDays: Math.max(0, isChecked ? habit.completedDays + 1 : habit.completedDays - 1),
+           streak: this.calculateStreak(habit, isChecked)
+         };
+         
+         habitRef.update({
+           data: updateData,
+           success: () => {
+             wx.hideLoading();
+             wx.showToast({
+               title: isChecked ? '打卡成功' : '已取消',
+               icon: 'success'
+             });
+             this.loadHabitsFromDB && this.loadHabitsFromDB();
+           },
+           fail: (err) => {
+             wx.hideLoading();
+             wx.showToast({
+               title: '更新失败',
+               icon: 'none'
+             });
+           }
+         });
+       },
+       fail: (err) => {
+         wx.hideLoading();
+         wx.showToast({
+           title: '查询失败',
+           icon: 'none'
+         });
+       }
+     });
+   },
+   
+   // 计算连续打卡天数
+   calculateStreak(habit, isChecked) {
+     if (!isChecked) return habit.streak;
+     
+     const now = new Date();
+     const today = now.toDateString();
+     const lastDate = habit.lastCompletedDate ? 
+       new Date(habit.lastCompletedDate).toDateString() : null;
+     
+     if (!lastDate) return 1;
+     
+     const yesterday = new Date(now);
+     yesterday.setDate(yesterday.getDate() - 1);
+     
+     if (lastDate === yesterday.toDateString()) {
+       return habit.streak + 1;
+     } else if (lastDate !== today) {
+       return 1;
+     }
+     return habit.streak;
+   }
 })
