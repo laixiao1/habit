@@ -1,4 +1,4 @@
-<view class="{{globalData.themeClass}}">
+<view class="center-container">
   <view class="userinfo">
     <view class="userinfo-avatar-wrapper">
       <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
@@ -8,11 +8,6 @@
     </view>
   </view>
 
-  <!--主题切换-->
-  <view class="theme-toggle">
-    <switch bindchange="toggleTheme" checked="{{isDarkTheme}}"></switch>
-    <text>{{isDarkTheme? '亮色主题' : '暗色主题'}}</text>
-  </view>
   <!-- 番茄钟 -->
   <view class="setting-entry">
     <view class="setting-item" bindtap="goToTomato">
