@@ -24,7 +24,6 @@ Page({
       { id: 4, path: '/image/ico/Candle.png' },
       { id: 5, path: '/image/ico/Dove.png' }
     ],
-    remindTime: null // 新增提醒时间字段
   },
 
   onNameInput(e) {
@@ -51,14 +50,8 @@ Page({
     });
   },
 
-  onRemindTimeChange(e) {
-    this.setData({
-      remindTime: e.detail.value
-    });
-  },
-
   submitHabit() {
-    const { habitName, typeIndex, frequencyIndex, selectedIcon, types, frequencies, remindTime } = this.data;
+    const { habitName, typeIndex, frequencyIndex, selectedIcon, types, frequencies} = this.data;
   
     // 验证输入
     if (!habitName.trim()) {
@@ -78,7 +71,6 @@ Page({
       status: frequencies[frequencyIndex].name, // 字符串，如"每周"
       lastCompletedDate: null,          // 初始为null
       createdAt: new Date(),             // 手动添加创建时间（或由云函数自动生成）
-      remindTime: remindTime            // 新增提醒时间
     };
   
     wx.showLoading({ title: '提交中...' });

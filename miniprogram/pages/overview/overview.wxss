@@ -1,64 +1,186 @@
-page{
-  background-color: #fdf7ae;
+/* 基础样式 */
+page {
+  background-color: #f5f5f5;
+  font-size: 14px;
 }
 
 .container {
-  padding: 20rpx;
+  padding: 15px;
 }
 
+/* 搜索和筛选区域 */
+.filter-section {
+  display: flex;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.search-bar {
+  flex: 1;
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  flex: 1;
+  height: 36px;
+  padding-right: 25px;
+}
+
+.clear-icon {
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 10px;
+}
+
+.type-picker {
+  background: #fff;
+  border-radius: 20px;
+  padding: 0 15px;
+  height: 36px;
+  line-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-icon {
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+}
+
+/* 进度条样式 */
+.progress-container {
+  width: 60%;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.progress-text {
+  display: block;
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+/* 表格样式 */
 .table-container {
-  border: 1px solid #ccc;
-  margin-bottom: 20rpx;
+  background: #fff;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .table-header {
   display: flex;
-  background-color: #f4f4f4;
-}
-
-.table-cell {
-  width: 200rpx;
-  flex: 1;
-  text-align: center;
-  padding: 10rpx;
-  border-right: 1px solid #ccc;
-}
-
-.table-cell:last-child {
-  border-right: none;
+  background: #f8f8f8;
+  font-weight: bold;
 }
 
 .table-body {
-  display: flex;
-  flex-wrap: wrap;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
-.chart {
+.table-row {
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.table-cell {
+  flex: 1;
+  padding: 12px 8px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.completed {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.uncompleted {
+  color: #F44336;
+  font-weight: bold;
+}
+
+/* 图表按钮 */
+.chart-buttons {
+  display: flex;
+  margin: 15px 0;
+  gap: 10px;
+}
+
+.chart-buttons button {
+  flex: 1;
+  background: #f0f0f0;
+  color: #666;
+  border: none;
+  border-radius: 20px;
+  font-size: 17px;
+}
+
+.chart-buttons button.active {
+  background: #67C9C1;
+  color: #fff;
+}
+
+/* 图表容器 */
+.chart-container {
+  background: #fff;
   width: 100%;
-  height: 400rpx;
-  margin-top: 20rpx;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.button-container {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 10rpx;
-}
-
-.download{
-  position: fixed; /* 固定定位 */
-  bottom: 20px; /* 距离页面底部 20px */
-  right: 20px; /* 距离页面右侧 20px */
-  width: 100rpx; /* 按钮宽度 */
-  height: 100rpx; /* 按钮高度 */
+/* 下载按钮 */
+.download {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  width: 100rpx;
+  height: 100rpx;
+  background: #67C9C1;
   border-radius: 50%;
-  border: none; /* 去掉默认边框 */
-  z-index: 999; /* 确保按钮在最上层 */
-  background-color: #67C9C1;
-  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
-.download image{
-  width: 80rpx;
-  height: 80rpx;
-  padding: 10rpx;
+
+.download image {
+  width: 70rpx;
+  height: 70rpx;
+  filter: brightness(0) invert(1);
 }

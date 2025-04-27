@@ -19,7 +19,6 @@ exports.main = async (event, context) => {
     status: event.status || '每日',
     lastCompletedDate: null, // 新增字段
     createdAt: db.serverDate(), // 使用服务器时间
-    remindTime: event.remindTime || null // 新增提醒时间字段
   }
 
   try {

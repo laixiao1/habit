@@ -1,27 +1,101 @@
 <view class="container">
-    <!-- 表格展示习惯基本信息 -->
-    <view class="table-container">
-        <view class="table-header">
-            <view class="table-cell">习惯名称</view>
-            <view class="table-cell">打卡状态</view>
-            <view class="table-cell">连续打卡天数</view>
-        </view>
-        <view class="table-body" wx:for="{{habitsList}}" wx:key="_id">
-            <view class="table-cell">{{item.name}}</view>
-            <view class="table-cell">{{item.completed? '已完成' : '未完成'}}</view>
-            <view class="table-cell">{{item.streak}}</view>
-        </view>
+  <!-- 搜索和筛选区域 -->
+  <view class="filter-section">
+    <view class="search-bar">
+      <input 
+        type="text" 
+        placeholder="搜索习惯名称" 
+        value="{{searchValue}}" 
+        bindinput="onSearchInput"
+      />
+      <image 
+        wx:if="{{searchValue}}" 
+        src="/images/clear.png" 
+        bindtap="clearSearch" 
+        class="clear-icon"
+      />
     </view>
-    <!-- 添加两个按钮 -->
-    <view class="button-container">
-        <button bindtap="showCompletionPieChart">完成情况总览</button>
-        <button bindtap="showTypeCompletionPieChart">按类型完成情况</button>
-    </view>
-    <!-- 图表展示区域，这里复用之前的canvas -->
-    <canvas id="completedHabitsChart" type="2d" style="width: 600rpx; height: 600rpx;"></canvas>
+    
+    <picker 
+      mode="selector" 
+      range="{{typeOptions}}" 
+      range-key="name" 
+      value="{{selectedType}}" 
+      bindchange="onTypeChange"
+    >
+      <view class="type-picker">
+        {{typeOptions[selectedType].name}}
+        <image src="/images/arrow-down.png" class="arrow-icon"/>
+      </view>
+    </picker>
+  </view>
 
-    <!-- 添加下载按钮 -->
-    <view class="download">
-      <image bindtap="download" src="/image/ico/download.png" mode="aspectFill"/>
+  <!-- 进度条 -->
+  <view class="progress-container">
+    <text class="progress-text">完成进度: {{completed}}/{{total}} ({{progressPercent}}%)</text>
+    <view class="progress-bar">
+      <view 
+        class="progress-fill" 
+        style="width: {{progressPercent}}; background-color: {{progressPercent >= 80 ? '#4CAF50' : progressPercent >= 50 ? '#FFC107' : '#F44336'}}"
+      ></view>
     </view>
+  </view>
+
+  <!-- 习惯表格 -->
+  <view class="table-container">
+    <view class="table-header">
+      <view class="table-cell">习惯名称</view>
+      <view class="table-cell">打卡状态</view>
+      <view class="table-cell">连续打卡天数</view>
+    </view>
+    <view class="table-body">
+      <view 
+        class="table-row" 
+        wx:for="{{habits}}" 
+        wx:key="_id"
+      >
+        <view class="table-cell">{{item.name}}</view>
+        <view class="table-cell">
+          <text class="{{item.completed ? 'completed' : 'uncompleted'}}">
+            {{item.completed ? '✓' : '✗'}}
+          </text>
+        </view>
+        <view class="table-cell">{{item.streak || 0}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 图表切换按钮 -->
+  <view class="chart-buttons">
+    <button 
+      bindtap="switchChartType"
+      class="{{chartType === 'completion' ? 'active' : ''}}"
+    >
+      完成情况
+    </button>
+    <button 
+      bindtap="switchChartType"
+      class="{{chartType !== 'completion' ? 'active' : ''}}"
+    >
+      类型分布
+    </button>
+  </view>
+
+  <!-- 图表区域 -->
+  <view class="chart-container">
+    <canvas 
+      id="completedHabitsChart" 
+      type="2d" 
+      style="width: 100%; height: 300px;"
+    ></canvas>
+  </view>
+
+  <!-- 下载按钮 -->
+  <view class="download">
+    <image 
+      bindtap="download" 
+      src="/image/ico/download.png" 
+      mode="aspectFill"
+    />
+  </view>
 </view>

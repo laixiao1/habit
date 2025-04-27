@@ -32,12 +32,5 @@
     </view>
   </view>
 
-  <view class="form-item">
-    <text class="label">提醒时间</text>
-    <picker mode="time" value="{{remindTime}}" bindchange="onRemindTimeChange">
-      <view class="picker">{{remindTime || '请选择提醒时间'}}</view>
-    </picker>
-  </view>
-
   <button class="submit-btn" bindtap="submitHabit">创建习惯</button>
 </view>
