@@ -3,7 +3,7 @@ page {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #fdf7ae;
+  background-color:#f5f5f5;
 }
 
 .container {
@@ -17,10 +17,11 @@ page {
 .header {
   width: 90%;
   height: auto;
-  background-color: #acd0ee;
+  background-color: #fff;
   border-radius: 15rpx;
   padding: 20rpx;
   margin-bottom: 50rpx;
+  border: 5rpx solid #67C9C1;
 }
 
 .he_text {
@@ -46,12 +47,13 @@ page {
   margin-bottom: 10rpx;
   height: 500rpx; 
   display: inline-block; 
-  box-sizing: border-box
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #67C9C1;
 }
 
 .image-container image {
-  width: 350px; /* 固定宽度 */
-  height: 250px; /* 固定高度 */
+  width: 355px; /* 固定宽度 */
+  height: 253px; /* 固定高度 */
   border-radius: 10rpx; /* 可选：添加圆角效果 */
 }
 
@@ -77,7 +79,7 @@ page {
 
 /* 添加删除按钮样式 */
 .delete-btn {
-  background-color: #ff4d4f;
+  background-color: #ff7a7c;
   color: white;
   border: none;
   border-radius: 30rpx; /* 较大的圆角 */
@@ -94,10 +96,10 @@ page {
   display: flex;
   flex-direction: column;
   padding: 20rpx;
-  border-bottom: 1rpx solid #EB82AE;
+  border: 5rpx solid #67C9C1;
   border-radius: 20rpx;
   margin-bottom: 20rpx;
-  background-color: #F2B9CE;
+  background-color: #fff;
 }
 
 /* 顶部行样式 */
@@ -169,5 +171,5 @@ page {
 
 /* 已完成的习惯复选框变灰 */
 checkbox[disabled] {
-  opacity: 0.6;
+  opacity: 0.7;
 }

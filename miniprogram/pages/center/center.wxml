@@ -39,7 +39,8 @@
       <image src="/image/ico/help.png" mode="aspectFill" class="arrow"></image>
     </view>
   </view>
+  <!--退出登录-->
   <view class="logout-btn">
-    <button bindtap="logout">退出登录</button>
+      <button bindtap="logout">退出登录</button>
   </view> 
 </view>

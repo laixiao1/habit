@@ -13,6 +13,7 @@
   margin-bottom: 20rpx;
   border-radius: 12rpx;
   box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.05);
+  border: 2rpx solid #67C9C1;
 }
 
 .item-left {
